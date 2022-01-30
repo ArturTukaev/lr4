@@ -1,0 +1,25 @@
+<?php
+session_start();
+if (!$_SESSION['admin']) {
+    header('Location: index.php');
+}
+?>
+<html>
+<meta charset="utf-8">
+<head> <title> Добавление нового автомобиля </title> </head>
+<body>
+<H2>Добавление авто:</H2>
+<form action="save_new_auto.php" metod="get">
+ Марка: <input name="marka" size="20" type="text">
+<br>Модель: <input name="model" size="20" type="text">
+<br>Год: <input name="year" size="4" type="text">
+<br>Трансмиссия: <input name="trans" size="30" type="text">
+<br>Стоимость: <input name="cost" size="30" type="text">
+<br>Объем: <input name="vol" size="30" type="text">
+<p><input name="add" type="submit" value="Добавить">
+<input name="b2" type="reset" value="Очистить"></p>
+</form>
+<p>
+<a href="index.php"> Вернуться к списку авто </a>
+</body>
+</html>
