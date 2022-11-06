@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Купить ж/д билеты онлайн (5 вариант)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+</head>
+
+<h1 class="text">Выгодные предложения по ж/д билетам в Уфе</h1>
+
+<body class="back">
+    <div class="container">
+        <div id="accordion">
+            <h3>Уфа - Москва</h3>
+            <div class="card">
+                <img src="offer-travel-desktop.jpg" style="width:100%" class="img">
+                <h1 class="text_2">Уфа - Москва</h1>
+                <p><button id="buy">Купить</button></p>
+                <p class="price">600 ₽</p>
+            </div>
+            <h3>Уфа - Санкт-Петербург</h3>
+            <div class="card">
+                <img src="48848.jpg" style="width:100%" class="img">
+                <h1 class="text_2">Уфа - Санкт-Петербург</h1>
+                <p><button id="buy">Купить</button></p>
+                <p class="price">600 ₽</p>
+            </div>
+            <h3>Уфа - Адлер</h3>
+            <div class="card">
+                <img src="offer-travel-desktop3.jpg" style="width:100%" class="img">
+                <h1 class="text_2">Уфа - Адлер</h1>
+                <p><button id="buy">Купить</button></p>
+                <p class="price">600 ₽</p>
+            </div>
+        </div>
+    </div>
+
+   <div id="dialog">
+        <label for="username">ФИО:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="username">Адрес электронной почты:</label>
+        <input type="text" id="mail" name="mail">
+
+        <label for="quantity">Количество:</label>
+        <input type="number" id="quantity" name="quantity" value="1"> <br>
+
+        <label for="quantity">Дата отправления:</label>
+        <input type="text" id="datepicker" name="date">
+
+        <label for="time">Время отправления:</label> 
+        <select name="time" id="time-select">
+            <option selected="selected">8:00</option>
+            <option>10:00</option>
+            <option>16:00</option>
+        </select>
+
+        <label for="wagon">Тип вагона:</label> 
+        <select name="wagon" id="wagon">
+            <option selected="selected">Плацкарт</option>
+            <option>Купе (+10% к стоимости билета)</option>
+        </select>
+
+        <label for="promo">Промокод
+            <a href="#" title="Промокод DISCOUNT для 5% скидки">
+                (Где найти)</a>:</label>
+            
+        <input type="text" id="promo" name="promo">
+
+        <button_small id="promo_button">Применить</button_small>
+        <br> <br>
+        <label for="total">Итоговая цена:</label>
+        <input type="text" id="total" name="total" value="600" readonly>
+
+        <button id="checkout">Оформить</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $("#accordion").accordion();
+        $(function () {
+            let isPromoAplyed = false;
+            let isCoupeAplyed = false;
+
+            function getTotal() {
+                let total = 0;
+                let quantity = $('#quantity').val();
+                let price = 600;
+                total = quantity * price;
+                if (isPromoAplyed) {
+                    total = total - total * 0.05;
+                }
+                if (isCoupeAplyed) {
+                    total = total + total * 0.1;
+                }
+                return total;
+            }
+
+            $(document).tooltip();
+
+            var select = $("#quantity");
+            var slider = $("<div id='slider'></div>").insertAfter(select).slider({
+                min: 1,
+                max: 10,
+                range: "min",
+                value: select[0].value,
+                slide: function (event, ui) {
+                    select[0].value = ui.value;
+                    $("#total").val(getTotal());
+                }
+            });
+            $("#quantity").on("change", function () {
+                slider.slider("value", this.value);
+                $("#total").val(getTotal());
+                if (this.value > 10) {
+                    (this.value = 10);
+                    alert('Достигнуто максимальное количество - 10');
+                    $("#total").val(getTotal());
+                }
+            });
+
+            $("#wagon").on("change", function () {
+                if (this.value == "Купе (+10% к стоимости билета)") {
+                    isCoupeAplyed = true;
+                    $("#total").val(getTotal());
+                } else {
+                    isCoupeAplyed = false;
+                    $("#total").val(getTotal());
+                }
+            });
+
+            $("#promo_button").click(function () {
+                if (promo.value == "DISCOUNT") {
+                    isPromoAplyed = true;
+                    $("#total").val(getTotal());
+                    alert('Введен промокод: DISCOUNT (5% скидка)');
+                } else if (promo.value == ""){
+                    alert('Введите промокод');
+                    isPromoAplyed = false;
+                    $("#total").val(getTotal());
+                }
+                else {
+                    alert('Неверный промокод');
+                    isPromoAplyed = false;
+                    $("#total").val(getTotal());
+                } 
+            });
+
+            $("#dialog").dialog({
+                autoOpen: false,
+                modal: true,
+            });
+
+            $("#buy").click(function () {
+                $("#dialog").dialog("open");
+                $("#datepicker").datepicker();
+                $("#city-select").selectmenu().addClass("overflow");
+                $("#promo").autocomplete({
+                    source: [
+                        "DISCOUNT"
+                    ]
+                });
+            });
+
+            $("#checkout").click(function () {
+                if (confirm("Оформить заказ?")) {
+                    alert("Спасибо за ваш заказ! Он будет выслан на ваш e-mail.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

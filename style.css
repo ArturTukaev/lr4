@@ -1,0 +1,95 @@
+.container {
+    position: relative;
+    width: 300px;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    margin: 0px 0 0 -170px;
+    height: auto;
+    background-color: rgb(215, 241, 241);
+    border-radius: 20px;
+}
+
+.back {
+    background-color: rgb(117, 239, 255)
+}
+
+.text {
+    margin-top: 50px;
+    font-family: Sans-serif;
+    color: rgb(34, 34, 34);
+    text-align: center
+}
+
+.text_2 {
+    font-family: Sans-serif;
+    color: black;
+    text-align: left;
+    font-size: 20px;
+}
+
+
+.img {
+    border-radius: 10px;
+}
+
+.card {
+    display: inline-block;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    margin-right: 40px;
+    text-align: center;
+    font-family: Sans-serif;
+}
+
+.price {
+    font-size: 20px;
+    font-family: Sans-serif;
+}
+
+button {
+    background-color: paleturquoise;
+    text-align: center;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+    height: 40px;
+}
+
+button_small {
+    background-color: paleturquoise;
+    text-align: center;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+    height: 40px;
+    padding: 7px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button_small:hover {
+    opacity: 0.8;
+}
+
+input[type=text],
+input[type=email],
+input[type=number],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical
+}
